@@ -1,0 +1,11 @@
+{
+  "name": "probedock-demo-grunt-jasmine",
+  "version": "0.1.0",
+  "dependencies": {
+    "probedock-demo-karma": "~0.1.0",
+    "jquery": "~2.1.4",
+    "json": "*",
+    "json2": "*",
+    "angular": "~1.4.4"
+  }
+}

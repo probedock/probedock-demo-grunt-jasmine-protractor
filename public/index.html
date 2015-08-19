@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="probedock-demo-grunt-jasmine">
+  <head>
+    <meta charset="utf-8">
+    <title>Probe Dock Demo Grunt Protractor with Jasmine as test framework</title>
+    <!--<script type="application/javascript" src="bower_components/jquery/dist/jquery.js"></script>-->
+    <script type="application/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="application/javascript" src="bower_components/json2/json2.js"></script>
+    <script type="application/javascript" src="bower_components/probedock-demo-karma/lib/operation.js"></script>
+    <script type="application/javascript" src="bower_components/probedock-demo-karma/lib/operationAdd.js"></script>
+    <script type="application/javascript" src="bower_components/probedock-demo-karma/lib/operationDiv.js"></script>
+    <script type="application/javascript" src="bower_components/probedock-demo-karma/lib/operationMul.js"></script>
+    <script type="application/javascript" src="bower_components/probedock-demo-karma/lib/operationSub.js"></script>
+
+    <script type="application/javascript">
+      function buildOperation(operationObj) {
+        // Build left tree
+        var left;
+        if (typeof operationObj.left === 'number') {
+          left = operationObj.left;
+        }
+        else {
+          left = buildOperation(operationObj.left);
+        }
+
+        // Build right tree
+        var right;
+        if (typeof operationObj.right === 'number') {
+          right = operationObj.right;
+        }
+        else {
+          right = buildOperation(operationObj.right);
+        }
+
+        // Transform to the correct operation
+        var op;
+        switch (operationObj.op) {
+          case 'add':
+            op = new calc.OperationAdd(left, right);
+            break;
+          case 'sub':
+            op = new calc.OperationSub(left, right);
+            break;
+          case 'mul':
+            op = new calc.OperationMul(left, right);
+            break;
+          case 'div':
+            op = new calc.OperationDiv(left, right);
+            break;
+          default:
+            throw new Error('Operation not supported: ' + operationObj.op);
+        }
+
+        return op;
+      }
+
+      angular.module('probedock-demo-grunt-jasmine', [])
+        .controller('JasmineDemoController', function($scope) {
+          $scope.calculator = {
+            result: '',
+            operation: JSON.stringify({
+              "op": "add",
+              "left": {
+                "op": "add",
+                "left": 4,
+                "right": 4
+              },
+              "right": 2
+            }, null, 2)
+          };
+
+          $scope.process = function(operationObject) {
+            var operation = buildOperation(JSON.parse(operationObject));
+            var res = operation.process();
+            $scope.calculator.result = res;
+          }
+        })
+    </script>
+  </head>
+  <body ng-controller="JasmineDemoController">
+    <div>
+      <span>Available operations: add, sub, div and mul</span>
+    </div>
+    <div>
+      <textarea cols="50" rows="15" ng-model="calculator.operation"></textarea>
+      <button id='process' ng-click="process(calculator.operation)">Calculate</button>
+      <div>
+        <span>
+          <strong>Result:</strong>
+        </span>
+        <span id="result">{{ calculator.result }}</span>
+      </div>
+    </div>
+    <!--<div id="debug"></div>-->
+  </body>
+</html>
