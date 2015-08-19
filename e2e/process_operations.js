@@ -36,7 +36,7 @@ describe('Operation @probedock(contributor=laurent.prevost@probedock.io ticket=c
     });
   });
 
-  it ('should be possible to set a custom basic operation (2 + 4) @probedock(tag=operation)', function() {
+  it ('should be possible to set a custom basic operation: 2 + 4 = 6 @probedock(tag=operation)', function() {
     var operation = element(by.model('calculator.operation'));
 
     operation.clear().sendKeys(JSON.stringify({
@@ -51,6 +51,36 @@ describe('Operation @probedock(contributor=laurent.prevost@probedock.io ticket=c
 
     result.getText().then(function(text) {
       expect(text).toEqual('6');
+    })
+  });
+
+  it ('should be possible to set a custom complex operation: 2 + (20 - (3 * (10 / 2))) = 7 @probedock(tag=operation)', function() {
+    var operation = element(by.model('calculator.operation'));
+
+    operation.clear().sendKeys(JSON.stringify({
+      op: 'add',
+      left: 2,
+      right: {
+        op: 'sub',
+        left: 20,
+        right: {
+          op: 'mul',
+          left: 3,
+          right: {
+            op: 'div',
+            left: 10,
+            right: 2
+          }
+        }
+      }
+    }, null, 2));
+
+    element(by.id('process')).click();
+
+    var result = element(by.id('result'));
+
+    result.getText().then(function(text) {
+      expect(text).toEqual('7');
     })
   });
 });
