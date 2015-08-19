@@ -18,7 +18,7 @@
 
 5. Once the project is created, you should follow the `Getting started` guide to setup your project. The guide will invite you to setup your main configuration file and the project configuration file. For this project, you must place the file `probedock.yml` in `<projectRootFolder>` folder. 
 
-6. Now, you can run the test via maven with `grunt test`. You will see test results on Probe Dock on the dashboard. You are able to see the result details by clicking on the report line. 
+6. Now, you can run the test with `grunt`. You will see test results on Probe Dock on the dashboard. You are able to see the result details by clicking on the report line. 
 
 9. Now you can play a bit with the tests. Break some tests and see the results on both interfaces. Play with the `probedock: { ... }` in the tests. You can also read the documentation of [Probe Dock Karma](https://github.com/probedock/probedock-karma) for more details about the probe used to send the test results. You have also several information on the [library](https://github.com/probedock/probedock-grunt) used by the probe. Finally, you will find the list of probes and libraries on this page: [Probe Dock Probes](https://github.com/probedock/probedock-probes).
 
