@@ -36,7 +36,7 @@ describe('Operation @probedock(contributor=laurent.prevost@probedock.io ticket=c
     });
   });
 
-  it ('should be possible to set a custom basic operation: 2 + 4 = 6 @probedock(tag=operation)', function() {
+  it ('should be possible to set a custom basic operation: 2 + 4 = 6 @probedock(tag=operation tag=basic)', function() {
     var operation = element(by.model('calculator.operation'));
 
     operation.clear().sendKeys(JSON.stringify({
@@ -54,7 +54,7 @@ describe('Operation @probedock(contributor=laurent.prevost@probedock.io ticket=c
     })
   });
 
-  it ('should be possible to set a custom complex operation: 2 + (20 - (3 * (10 / 2))) = 7 @probedock(tag=operation)', function() {
+  it ('should be possible to set a custom complex operation: 2 + (20 - (3 * (10 / 2))) = 7 @probedock(tag=operation tag=complex)', function() {
     var operation = element(by.model('calculator.operation'));
 
     operation.clear().sendKeys(JSON.stringify({
